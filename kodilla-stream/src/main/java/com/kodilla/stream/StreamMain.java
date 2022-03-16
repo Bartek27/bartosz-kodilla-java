@@ -1,16 +1,24 @@
 package com.kodilla.stream;
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
 
-import java.util.Objects;
-
-
-import com.kodilla.stream.iterate.NumbersGenerator;
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamMain {
-
     public static void main(String[] args) {
+        Forum theListOfUserForum = new Forum();
+        Map<Integer, ForumUser> theResultListOfUserForum = theListOfUserForum.getUserList().stream()
+                .filter(forumUser -> forumUser.getUserSex() == ForumUser.UserSex.M)
+                .filter(forumUser -> forumUser.getDateOfBirth().isBefore(LocalDate.now().minusYears(20)))
+                .filter(forumUser -> forumUser.getPublishedPostsNumber() >= 1)
+                .collect(Collectors.toMap(ForumUser::getUserID, forumUser -> forumUser));
 
+        System.out.println("Liczba odflitrowanych elementów w liście użytkowników forum: " + theResultListOfUserForum.size());
 
-        System.out.println("Using Stream to generate even numbers from 1 to 20");
-        NumbersGenerator.generateEven(20);
+        theResultListOfUserForum.values().stream()
+                .forEach(s -> System.out.println(s));
+
     }
 }
