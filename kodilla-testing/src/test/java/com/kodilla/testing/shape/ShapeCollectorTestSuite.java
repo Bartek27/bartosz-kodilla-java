@@ -34,7 +34,7 @@ public class ShapeCollectorTestSuite {
     public void testGetFigure() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
-        Circle circle = new Circle("Circle", 5);
+        Circle circle = new Circle("Circle", -4);
         shapeCollector.addFigure(circle);
         //When
         Shape retrievedFigure;
