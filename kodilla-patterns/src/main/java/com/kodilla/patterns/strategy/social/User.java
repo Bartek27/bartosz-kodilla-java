@@ -12,9 +12,10 @@ public class User {
         return userName;
     }
 
-    public void share(String post) {
+    public String share(String post) {
         System.out.println("the post [" + post + "] will be shared on: ");
         socialPublisher.share();
+        return post;
     }
 
     public void setSocialPublishingStrategy(SocialPublisher socialPublisher) {
