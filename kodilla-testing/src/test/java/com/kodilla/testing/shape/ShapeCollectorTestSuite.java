@@ -5,6 +5,7 @@ import com.kodilla.testing.shape.ShapeCollector;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 public class ShapeCollectorTestSuite {
@@ -34,7 +35,7 @@ public class ShapeCollectorTestSuite {
     public void testGetFigure() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
-        Circle circle = new Circle("Circle", -4);
+        Circle circle = new Circle("Circle", 2);
         shapeCollector.addFigure(circle);
         //When
         Shape retrievedFigure;
@@ -43,4 +44,5 @@ public class ShapeCollectorTestSuite {
         Assert.assertEquals(circle, retrievedFigure);
 
     }
+
 }
