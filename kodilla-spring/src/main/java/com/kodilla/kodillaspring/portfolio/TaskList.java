@@ -1,24 +1,17 @@
 package com.kodilla.kodillaspring.portfolio;
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class TaskList {
-    private final List<String> tasks;
-
+    List<String> tasks;
     public TaskList() {
         tasks = new ArrayList<>();
     }
-
-    public void addTaskTotheList(String task) {
-
-        tasks.add(task);
+    public void addTask(String newTask) {
+        tasks.add(newTask);
     }
-
-    public String getTaskFromTheList(int index) {
-        return tasks.get(index);
+    public int showSize() {
+        return tasks.size();
     }
 }

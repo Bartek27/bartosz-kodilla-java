@@ -60,45 +60,72 @@ class CompanyDaoTestSuite {
         //}
     }
     @Test
-    public void testQueriesFindByString() {
-
+    public void testEmployeeLastName() {
         //Given
         Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
 
-        Company softwareMachines = new Company("Software Machines");
+        Company listEmployees = new Company("TradeCompany");
 
-        softwareMachines.getEmployees().add(johnSmith);
+        listEmployees.getEmployees().add(johnSmith);
+        listEmployees.getEmployees().add(stephanieClarckson);
+        listEmployees.getEmployees().add(lindaKovalsky);
 
-        johnSmith.getCompanies().add(softwareMachines);
+        johnSmith.getCompanies().add(listEmployees);
+        stephanieClarckson.getCompanies().add(listEmployees);
+        lindaKovalsky.getCompanies().add(listEmployees);
 
         //When
         employeeDao.save(johnSmith);
-        int johnSmithId = johnSmith.getId();
-
-        List<Employee> employeesWithLastName = employeeDao.retrieveEmployeesByLastname("Smith");
+        employeeDao.save(stephanieClarckson);
+        employeeDao.save(lindaKovalsky);
+        List<Employee> searchLastNameEmployee = employeeDao.retrieveLastName("Clarckson");
 
         //Then
-        Assert.assertEquals(1, employeesWithLastName.size());
+        try {
+            assertEquals(1, searchLastNameEmployee.size());
+        } finally {
+            //CleanUp
+            employeeDao.delete(johnSmith);
+            employeeDao.delete(stephanieClarckson);
+            employeeDao.delete(lindaKovalsky);
+        }
     }
+
+    //      Task 17.4   -   firstly three chars of name   -   Company
     @Test
-    public void testQueriesFindBySSubstring() {
-
+    public void testCompanyName() {
         //Given
-        Employee johnSmith = new Employee("John", "Smith");
+        Company firstCompany = new Company("First");
+        Company secondCompany = new Company("Second");
+        Company thirdCompany = new Company("Third");
 
-        Company softwareMachines = new Company("Software Machines");
+        Employee listCompany = new Employee("name of employee", "surname of employee");
 
-        softwareMachines.getEmployees().add(johnSmith);
+        listCompany.getCompanies().add(firstCompany);
+        listCompany.getCompanies().add(secondCompany);
+        listCompany.getCompanies().add(thirdCompany);
 
-        johnSmith.getCompanies().add(softwareMachines);
+        firstCompany.getEmployees().add(listCompany);
+        secondCompany.getEmployees().add(listCompany);
+        thirdCompany.getEmployees().add(listCompany);
 
         //When
-        companyDao.save(softwareMachines);
-        int softwareMachinesId = softwareMachines.getId();
-
-        List<Company> companiesWithThreeFirsLetters = companyDao.retrieveCompaniesByFirstThreeLetters("Sof");
+        companyDao.save(firstCompany);
+        companyDao.save(secondCompany);
+        companyDao.save(thirdCompany);
+        List<Company> searchNameCompany = companyDao.retrieveFirstlyThreeCharsName("sec");
 
         //Then
-        Assert.assertEquals(1, companiesWithThreeFirsLetters.size());
+        try {
+            assertEquals(1, searchNameCompany.size());
+        } finally {
+            //CleanUp
+            companyDao.delete(firstCompany);
+            companyDao.delete(secondCompany);
+            companyDao.delete(thirdCompany);
+        }
     }
+
 }
