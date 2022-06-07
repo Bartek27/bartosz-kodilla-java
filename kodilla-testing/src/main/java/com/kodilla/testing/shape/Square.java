@@ -1,20 +1,18 @@
 package com.kodilla.testing.shape;
 
+import java.lang.*;
 import java.util.Objects;
 
 public class Square implements Shape {
-    private String ShapeName;
-    private Integer Field;
 
-    public Square(String shapeName, Integer field) {
-        this.ShapeName = shapeName;
-        this.Field = field;
+    private double a;
+
+    public Square(double a) {
+        this.a = a;
     }
-    public String getShapeName() {
-        return "Square";
-    }
-    public Integer getField() {
-        return 7;
+
+    public double getA() {
+        return a;
     }
 
     @Override
@@ -22,13 +20,20 @@ public class Square implements Shape {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Square square = (Square) o;
-        return Objects.equals(ShapeName, square.ShapeName) &&
-                Objects.equals(Field, square.Field);
+        return Double.compare(square.a, a) == 0;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(ShapeName, Field);
+        return Objects.hash(a);
     }
+
+    public String getShapeName() {
+        return "Square";
+    }
+
+    public double getField() {
+        return a*a;
+    }
+
 }

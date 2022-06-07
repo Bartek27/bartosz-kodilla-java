@@ -1,20 +1,24 @@
 package com.kodilla.testing.shape;
 
+import java.lang.*;
 import java.util.Objects;
 
-public class Triangle implements Shape {
-    private String ShapeName;
-    private Integer Field;
+public class Triangle implements Shape{
 
-    public Triangle(String shapeName, Integer field) {
-        this.ShapeName = shapeName;
-        this.Field = field;
+    private double a;
+    private double h;
+
+    public Triangle(double a, double h) {
+        this.a = a;
+        this.h = h;
     }
-    public String getShapeName() {
-        return "Triangle";
+
+    public double getA() {
+        return a;
     }
-    public Integer getField() {
-        return 9;
+
+    public double getH() {
+        return h;
     }
 
     @Override
@@ -22,13 +26,21 @@ public class Triangle implements Shape {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle = (Triangle) o;
-        return Objects.equals(ShapeName, triangle.ShapeName) &&
-                Objects.equals(Field, triangle.Field);
+        return Double.compare(triangle.a, a) == 0 &&
+                Double.compare(triangle.h, h) == 0;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(ShapeName, Field);
+        return Objects.hash(a, h);
     }
+
+    public String getShapeName() {
+        return "Triangle";
+    }
+
+    public double getField() {
+        return 0.5 * a * h;
+    }
+
 }
