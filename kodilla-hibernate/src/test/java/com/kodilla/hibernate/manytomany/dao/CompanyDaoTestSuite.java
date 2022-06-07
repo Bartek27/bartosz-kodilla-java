@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -14,8 +17,11 @@ class CompanyDaoTestSuite {
     @Autowired
     private CompanyDao companyDao;
 
+    @Autowired
+    private EmployeeDao employeeDao;
+
     @Test
-    void testSaveManyToMany() {
+    public void testSaveManyToMany() {
         //Given
         Employee johnSmith = new Employee("John", "Smith");
         Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
@@ -51,14 +57,15 @@ class CompanyDaoTestSuite {
         assertNotEquals(0, greyMatterId);
 
         //CleanUp
-        //try {
-        //    companyDao.deleteById(softwareMachineId);
-        //    companyDao.deleteById(dataMaestersId);
-        //    companyDao.deleteById(greyMatterId);
-        //} catch (Exception e) {
-        //    //do nothing
-        //}
+        try {
+            companyDao.deleteById(softwareMachineId);
+            companyDao.deleteById(dataMaestersId);
+            companyDao.deleteById(greyMatterId);
+        } catch (Exception e) {
+            //do nothing
+        }
     }
+
     @Test
     public void testEmployeeLastName() {
         //Given
@@ -84,7 +91,7 @@ class CompanyDaoTestSuite {
 
         //Then
         try {
-            assertEquals(1, searchLastNameEmployee.size());
+            assertEquals(3, searchLastNameEmployee.size());
         } finally {
             //CleanUp
             employeeDao.delete(johnSmith);
@@ -93,7 +100,7 @@ class CompanyDaoTestSuite {
         }
     }
 
-    //      Task 17.4   -   firstly three chars of name   -   Company
+
     @Test
     public void testCompanyName() {
         //Given
@@ -127,5 +134,6 @@ class CompanyDaoTestSuite {
             companyDao.delete(thirdCompany);
         }
     }
+
 
 }
